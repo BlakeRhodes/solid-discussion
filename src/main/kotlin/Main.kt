@@ -13,7 +13,7 @@ $$ |__$$ |$$ |_____ $$ |  $$ |$$ |$$  \ $$ |_____       $$ |  $$ |$$ |  $$ |$$ \
 $$    $$/ $$       |$$ |  $$ |$$ | $$  |$$       |      $$ |  $$ |$$ |  $$ |$$    $$/ $$    $$/ $$       |$$    $$/
 $$$$$$$/  $$$$$$$$/ $$/   $$/ $$/   $$/ $$$$$$$$/       $$/   $$/ $$/   $$/  $$$$$$/  $$$$$$$/  $$$$$$$$/  $$$$$$/
 
-Impressive Programmer, Many Titles, creator of rotato.dev, and Kotlin Nut
+Impressive Programmer, Many Titled, Creator of ROTATO.DEV, and Kotlin Nut
 
 
  */
