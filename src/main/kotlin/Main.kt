@@ -38,7 +38,7 @@ Impressive Programmer, Many Titled, Creator of ROTATO.DEV, and Kotlin Nut
 */
 /*
     But . . .
-                Sometimes it gets complicated, if only we had some design principles to guide us.
+                Sometimes it gets complicated, if only we had some design principles to guide us . . .
 */
 
 /* Luckily we have
