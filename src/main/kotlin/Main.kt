@@ -151,49 +151,56 @@ class IceCrackerService {
 }
 
 // Open for Extension-Closed for Modifications
-interface Garnish {
-    fun prepare()
-}
+interface SimpleGarnish
 
-class Cherry : Garnish {
-    override fun prepare() {
-        TODO("code that prepares the garnish")
-    }
-}
+class SimpleCherry : SimpleGarnish
 
-class OrangeSlice : Garnish {
-    override fun prepare() {
-        TODO("code that prepares the garnish")
-    }
-}
+class SimpleOrangeSlice : SimpleGarnish
 
 // Open for modification
 class QuestionableGarnishService {
-    fun garnish(drink: Drink, garnish: Garnish): Drink {
+    fun garnish(drink: Drink, garnish: SimpleGarnish): Drink {
         when(garnish) {
-            is Cherry -> TODO("code that does the cherry garnishing")
-            is OrangeSlice -> TODO("code that does the orange slice garnishing")
+            is SimpleCherry -> TODO("code that does the cherry garnishing")
+            is SimpleOrangeSlice -> TODO("code that does the orange slice garnishing")
         }
         TODO("the rest of your code")
     }
 }
 
+// class LimeWedge: SimpleGarnish
+
 // Closed for modification, Open for extension
-class LimeWedge : Garnish {
+interface SmartGarnish {
+    fun prepare()
+}
+class Cherry : SmartGarnish {
+    override fun prepare() {
+        TODO("code that prepares the garnish")
+    }
+}
+
+class OrangeSlice : SmartGarnish {
+    override fun prepare() {
+        TODO("code that prepares the garnish")
+    }
+}
+
+class LimeWedge : SmartGarnish {
     override fun prepare() {
         TODO("code that prepares the garnish")
     }
 }
 
 open class GarnishService {
-    fun garnish(drink: Drink, garnish: Garnish): Drink {
+    fun garnish(drink: Drink, garnish: SmartGarnish): Drink {
         garnish.prepare()
         TODO("the rest of the code")
     }
 }
 
 class TikiGarnishService : GarnishService() {
-    fun putInTikiGlass(drink: Drink, garnish: Garnish): Drink {
+    fun putInTikiGlass(drink: Drink, garnish: SmartGarnish): Drink {
         val garnishedDrink = garnish(drink, garnish)
 
         TODO("code to put the drink in a sweet tiki mug, like a classic deuce or a parrot")
@@ -213,17 +220,13 @@ or . . .
 */
 
 
-open class TablePrep {
-    open fun prepare(drink: Drink): Drink {
-        TODO("code that prepares the drink table side")
-    }
+interface TablePrep {
+    fun prepare(drink: Drink): Drink
 
-    open fun flair(drink: Drink): Drink {
-        TODO("code that prepares the drink, with much flair")
-    }
+    fun flair(drink: Drink): Drink
 }
 
-class FlamingDrink : TablePrep() {
+class FlamingDrink : TablePrep {
     override fun prepare(drink: Drink): Drink {
         TODO("code that prepares the drink table side")
     }
@@ -250,21 +253,37 @@ class TableSidePreparer {
 
 // Using Liskov Substitution
 
-open class BarPrep {
-    fun prepare(drink: Drink): Drink {
+interface BarPrep {
+    fun prepare(drink: Drink): Drink
+}
+
+interface BarFlair : BarPrep {
+    fun flair(drink: Drink): Drink
+}
+
+class BarFreshFruit : BarPrep {
+    override fun prepare(drink: Drink): Drink {
         TODO("code that prepares the drink table side")
     }
 }
+class BarFlaming : BarFlair {
+    override fun prepare(drink: Drink): Drink {
+        TODO("code that prepares the drink table side")
+    }
 
-open class BarFlair : BarPrep() {
-    fun flair(drink: Drink): Drink {
+    override fun flair(drink: Drink): Drink {
         TODO("code that prepares the drink table side")
     }
 }
+class BarTrickPour : BarFlair {
+    override fun prepare(drink: Drink): Drink {
+        TODO("code that prepares the drink table side")
+    }
 
-class BarFreshFruit : BarPrep()
-class BarFlaming : BarFlair()
-class BarTrickPour : BarFlair()
+    override fun flair(drink: Drink): Drink {
+        TODO("code that prepares the drink table side")
+    }
+}
 
 class BarPreparer {
     fun prep(prep: BarPrep, drink: Drink): Drink {
@@ -298,7 +317,9 @@ class Blender : Mixer {
         TODO("code to blend the drink")
     }
 
-    override fun muddle(drink: Drink): Drink = throw (RuntimeException("can't muddle, use a different Mixer"))
+    override fun muddle(drink: Drink): Drink = throw (
+        RuntimeException("can't muddle, use a different Mixer")
+    )
 }
 
 // Segregation used correctly
@@ -340,8 +361,12 @@ class NiceFridge : Refrigerator, WaterDespencer {
 High-level objects should not depend on low-level objects. Both should depend on abstractions that do
 not depend on details. Details should depend on abstractions. */
 
-class Screen
 class Recipe
+class Screen
+
+interface Formatter {
+    fun format(recipe: Recipe): Screen
+}
 
 interface Display {
     fun next(screen: Screen)
@@ -357,10 +382,6 @@ class LargeTv : Display {
     override fun next(screen: Screen) {
         TODO("code to make it readable")
     }
-}
-
-interface Formatter {
-    fun format(recipe: Recipe): Screen
 }
 
 class Summary : Formatter {
