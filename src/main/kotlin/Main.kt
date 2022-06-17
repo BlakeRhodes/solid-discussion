@@ -168,7 +168,7 @@ class QuestionableGarnishService {
     }
 }
 
-// class LimeWedge: SimpleGarnish
+ class SimpleLimeWedge: SimpleGarnish
 
 // Closed for modification, Open for extension
 interface SmartGarnish {
@@ -333,7 +333,7 @@ interface WaterDespencer {
     fun pourWater()
 }
 
-class CheapFridge : Refrigerator {
+open class BasicFridge : Refrigerator {
     override fun cool() {
         TODO("code that cools")
     }
@@ -343,7 +343,7 @@ class CheapFridge : Refrigerator {
     }
 }
 
-class NiceFridge : Refrigerator, WaterDespencer {
+class NiceFridge : BasicFridge(), WaterDespencer {
     override fun cool() {
         TODO("code that cools")
     }
@@ -362,43 +362,43 @@ High-level objects should not depend on low-level objects. Both should depend on
 not depend on details. Details should depend on abstractions. */
 
 class Recipe
-class Screen
+class Advert
 
 interface Formatter {
-    fun format(recipe: Recipe): Screen
+    fun format(recipe: Recipe): Advert
 }
 
 interface Display {
-    fun next(screen: Screen)
+    fun next(advert: Advert)
 }
 
 class SmallTv : Display {
-    override fun next(screen: Screen) {
+    override fun next(advert: Advert) {
         TODO("code to make it readable")
     }
 }
 
 class LargeTv : Display {
-    override fun next(screen: Screen) {
+    override fun next(advert: Advert) {
         TODO("code to make it readable")
     }
 }
 
 class Summary : Formatter {
-    override fun format(recipe: Recipe): Screen {
+    override fun format(recipe: Recipe): Advert {
         TODO("code that summarizes the recipe")
     }
 }
 
-class MenuItem : Formatter {
-    override fun format(recipe: Recipe): Screen {
+class FeaturedItem : Formatter {
+    override fun format(recipe: Recipe): Advert {
         TODO("code that formats the recipe")
     }
 }
 
 class DisplayManager(
-    val display: Display,
-    val formatter: Formatter,
+    private val display: Display,
+    private val formatter: Formatter,
 ) {
     fun displayRecipe(recipe: Recipe) {
         display.next(
