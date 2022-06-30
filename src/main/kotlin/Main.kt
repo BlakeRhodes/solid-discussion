@@ -168,7 +168,7 @@ class QuestionableGarnishService {
     }
 }
 
- class SimpleLimeWedge: SimpleGarnish
+class SimpleLimeWedge: SimpleGarnish
 
 // Closed for modification, Open for extension
 interface SmartGarnish {
@@ -396,7 +396,7 @@ class FeaturedItem : Formatter {
     }
 }
 
-class DisplayManager(
+open class DisplayManager(
     private val display: Display,
     private val formatter: Formatter,
 ) {
@@ -406,3 +406,7 @@ class DisplayManager(
         )
     }
 }
+
+// TODO rotating screen manager
+
+
